@@ -24,178 +24,181 @@ import javax.persistence.Transient;
 
 import com.kasale.pontointeligente.api.enums.PerfilEnum;
 
-/**
- * @author USER
- *
- */
 @Entity
-@Table(name="funcionario")
+@Table(name = "funcionario")
 public class Funcionario implements Serializable {
 
-	
-	private static final long serialVersionUID = 1995097989006937297L;
+	private static final long serialVersionUID = -5754246207015712518L;
 	
 	private Long id;
 	private String nome;
 	private String email;
 	private String senha;
 	private String cpf;
-	private BigDecimal valorHoras;
-	private Float qtdeHorasTrabalhoDia;
-	private Float qtdeHrasAlmoco;
+	private BigDecimal valorHora;
+	private Float qtdHorasTrabalhoDia;
+	private Float qtdHorasAlmoco;
 	private PerfilEnum perfil;
 	private Date dataCriacao;
 	private Date dataAtualizacao;
-	private Empresa empres;
+	private Empresa empresa;
 	private List<Lancamento> lancamentos;
+
+	public Funcionario() {
+	}
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.AUTO)
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	@Column(name="nome", nullable=false)
+
+	@Column(name = "nome", nullable = false)
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	@Column(name="email", nullable=false)
+
+	@Column(name = "email", nullable = false)
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	@Column(name = "cpf", nullable = false)
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	@Column(name = "valor_hora", nullable = true)
+	public BigDecimal getValorHora() {
+		return valorHora;
+	}
 	
-	@Column(name="senha", nullable=false)
+	@Transient
+	public Optional<BigDecimal> getValorHoraOpt() {
+		return Optional.ofNullable(valorHora);
+	}
+
+	public void setValorHora(BigDecimal valorHora) {
+		this.valorHora = valorHora;
+	}
+
+	@Column(name = "qtd_horas_trabalho_dia", nullable = true)
+	public Float getQtdHorasTrabalhoDia() {
+		return qtdHorasTrabalhoDia;
+	}
+	
+	@Transient
+	public Optional<Float> getQtdHorasTrabalhoDiaOpt() {
+		return Optional.ofNullable(qtdHorasTrabalhoDia);
+	}
+
+	public void setQtdHorasTrabalhoDia(Float qtdHorasTrabalhoDia) {
+		this.qtdHorasTrabalhoDia = qtdHorasTrabalhoDia;
+	}
+
+	@Column(name = "qtd_horas_almoco", nullable = true)
+	public Float getQtdHorasAlmoco() {
+		return qtdHorasAlmoco;
+	}
+	
+	@Transient
+	public Optional<Float> getQtdHorasAlmocoOpt() {
+		return Optional.ofNullable(qtdHorasAlmoco);
+	}
+
+	public void setQtdHorasAlmoco(Float qtdHorasAlmoco) {
+		this.qtdHorasAlmoco = qtdHorasAlmoco;
+	}
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "perfil", nullable = false)
+	public PerfilEnum getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(PerfilEnum perfil) {
+		this.perfil = perfil;
+	}
+
+	@Column(name = "data_criacao", nullable = false)
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	@Column(name = "data_atualizacao", nullable = false)
+	public Date getDataAtualizacao() {
+		return dataAtualizacao;
+	}
+
+	public void setDataAtualizacao(Date dataAtualizacao) {
+		this.dataAtualizacao = dataAtualizacao;
+	}
+
+	@Column(name = "senha", nullable = false)
 	public String getSenha() {
 		return senha;
 	}
 	
 	public void setSenha(String senha) {
-		this.senha = senha;	
+		this.senha = senha;
 	}
-	
-	@Column(name="cpf", nullable=false)
-	public String getCpf() {
-		return cpf;
-	}
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-	
-	@Column(name="valor_hora", nullable=false)
-	public BigDecimal getValorHoras() {
-		return valorHoras;
-	}
-	
-	@Transient
-	public Optional<BigDecimal> getValorHoraOpt(){
-		return Optional.ofNullable(valorHoras);
-	}	
-			
-	public void setValorHoras(BigDecimal valorHoras) {
-		this.valorHoras = valorHoras;
-	}
-	
-	@Column(name="qtd_horas_trabalho_dia", nullable=false)
-	public Float getQtdeHorasTrabalhoDia() {
-		return qtdeHorasTrabalhoDia;
-	}
-	
-	@Transient
-	public Optional<Float> getQtHorasTrabalhoDiaOpt(){
-		return Optional.ofNullable(qtdeHorasTrabalhoDia);
-	}	
-	
-	public void setQtdeHorasTrabalhoDia(Float qtdeHorasTrabalhoDia) {
-		this.qtdeHorasTrabalhoDia = qtdeHorasTrabalhoDia;
-	}
-	
-	@Column(name="qtd_horas_almoco", nullable=false)
-	public Float getQtdeHrasAlmoco() {
-		return qtdeHrasAlmoco;
-	}
-	public void setQtdeHrasAlmoco(Float qtdeHrasAlmoco) {
-		this.qtdeHrasAlmoco = qtdeHrasAlmoco;
-	}
-	
-	@Transient
-	public Optional<Float> getQtHorasalmocoOpt(){
-		return Optional.ofNullable(qtdeHrasAlmoco);
-	}
-	
-	@Enumerated(EnumType.STRING)
-	@Column(name="perfil", nullable=false)
-	public PerfilEnum getPerfil() {
-		return perfil;
-	}
-	
-	public void setPerfil(PerfilEnum perfil) {
-		this.perfil = perfil;
-	}
-	
-	@Column(name="data_criacao", nullable=false)
-	public Date getDataCriacao() {
-		return dataCriacao;
-	}
-	
-	public void setDataCriacao(Date dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
-	
-	@Column(name="data_atualizacao", nullable=false)
-	public Date getDataAtualizacao() {
-		return dataAtualizacao;
-	}
-	public void setDataAtualizacao(Date dataAtualizacao) {
-		this.dataAtualizacao = dataAtualizacao;
-	}
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
-	public Empresa getEmpres() {
-		return empres;
+	public Empresa getEmpresa() {
+		return empresa;
 	}
-	public void setEmpres(Empresa empres) {
-		this.empres = empres;
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
-	
+
 	@OneToMany(mappedBy = "funcionario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	public List<Lancamento> getLancamentos() {
 		return lancamentos;
 	}
+
 	public void setLancamentos(List<Lancamento> lancamentos) {
 		this.lancamentos = lancamentos;
 	}
 	
-	@PrePersist
-	public void prePersist() {
-		final Date atual = new Date();
-		dataCriacao = atual;
-		dataAtualizacao = atual;
-		
-	}
-	
 	@PreUpdate
-	public void preUpdate() {
-		dataAtualizacao = new Date();
-	}
-	
+    public void preUpdate() {
+        dataAtualizacao = new Date();
+    }
+     
+    @PrePersist
+    public void prePersist() {
+        final Date atual = new Date();
+        dataCriacao = atual;
+        dataAtualizacao = atual;
+    }
+
 	@Override
 	public String toString() {
 		return "Funcionario [id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", cpf=" + cpf
-				+ ", valorHoras=" + valorHoras + ", qtdeHorasTrabalhoDia=" + qtdeHorasTrabalhoDia + ", qtdeHrasAlmoco="
-				+ qtdeHrasAlmoco + ", perfil=" + perfil + ", dataCriacao=" + dataCriacao + ", dataAtualizacao="
-				+ dataAtualizacao + ", empres=" + empres + ", lancamentos=" + lancamentos + "]";
+				+ ", valorHora=" + valorHora + ", qtdHorasTrabalhoDia=" + qtdHorasTrabalhoDia + ", qtdHorasAlmoco="
+				+ qtdHorasAlmoco + ", perfil=" + perfil + ", dataCriacao="
+				+ dataCriacao + ", dataAtualizacao=" + dataAtualizacao + ", empresa=" + empresa + "]";
 	}
-	
 
-
-	
-	
-	
 }

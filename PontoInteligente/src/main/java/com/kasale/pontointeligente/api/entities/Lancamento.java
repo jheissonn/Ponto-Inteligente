@@ -21,13 +21,11 @@ import javax.persistence.TemporalType;
 import com.kasale.pontointeligente.api.enums.TipoEnum;
 
 @Entity
-@Table(name="lancamento")
+@Table(name = "lancamento")
 public class Lancamento implements Serializable {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2439752732200976524L;
+	private static final long serialVersionUID = 6524560251526772839L;
+
 	private Long id;
 	private Date data;
 	private String descricao;
@@ -36,80 +34,71 @@ public class Lancamento implements Serializable {
 	private Date dataAtualizacao;
 	private TipoEnum tipo;
 	private Funcionario funcionario;
-	
-	
+
 	public Lancamento() {
-		
 	}
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.AUTO)
 	public Long getId() {
 		return id;
 	}
 
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="data", nullable = false)
+	@Column(name = "data", nullable = false)
 	public Date getData() {
 		return data;
 	}
 
-	
 	public void setData(Date data) {
 		this.data = data;
 	}
 
-	@Column(name="descricao", nullable = true)
+	@Column(name = "descricao", nullable = true)
 	public String getDescricao() {
 		return descricao;
 	}
 
-
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-
-	@Column(name="localizacao", nullable = true)
+	
+	@Column(name = "localizacao", nullable = true)
 	public String getLocalizacao() {
 		return localizacao;
 	}
-
 
 	public void setLocalizacao(String localizacao) {
 		this.localizacao = localizacao;
 	}
 
-	@Column(name="data_criacao", nullable = false)
+	@Column(name = "data_criacao", nullable = false)
 	public Date getDataCriacao() {
 		return dataCriacao;
 	}
-
 
 	public void setDataCriacao(Date dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
 
-	@Column(name="data_atualizacao", nullable = false)
+	@Column(name = "data_atualizacao", nullable = false)
 	public Date getDataAtualizacao() {
 		return dataAtualizacao;
 	}
-
 
 	public void setDataAtualizacao(Date dataAtualizacao) {
 		this.dataAtualizacao = dataAtualizacao;
 	}
 
 	@Enumerated(EnumType.STRING)
-	@Column(name="tipo", nullable = false)
+	@Column(name = "tipo", nullable = false)
 	public TipoEnum getTipo() {
 		return tipo;
 	}
-
 
 	public void setTipo(TipoEnum tipo) {
 		this.tipo = tipo;
@@ -120,23 +109,21 @@ public class Lancamento implements Serializable {
 		return funcionario;
 	}
 
-
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
 	
-	@PrePersist
-	public void prePersist() {
-		final Date atual = new Date();
-		dataCriacao = atual;
-		dataAtualizacao = atual;
-		
-	}
-	
 	@PreUpdate
-	public void preUpdate() {
-		dataAtualizacao = new Date();
-	}
+    public void preUpdate() {
+        dataAtualizacao = new Date();
+    }
+     
+    @PrePersist
+    public void prePersist() {
+        final Date atual = new Date();
+        dataCriacao = atual;
+        dataAtualizacao = atual;
+    }
 
 	@Override
 	public String toString() {
@@ -144,7 +131,5 @@ public class Lancamento implements Serializable {
 				+ ", dataCriacao=" + dataCriacao + ", dataAtualizacao=" + dataAtualizacao + ", tipo=" + tipo
 				+ ", funcionario=" + funcionario + "]";
 	}
-	
-	
-	
+
 }
